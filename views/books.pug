@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  h1= title
+
+  - let result = [{name:"Steelheart", length:386, author:"Brandon Sanderson"}, {name:"Six of Crows", length:465, author:"Leigh Bardugo"}, {name:"The Name of the Wind", length:662, author:"Patrick Rothfuss"}]
+  div(class="container-fluid")
+    div(class="row")
+    - let x = 0;
+    each value in result 
+      div(class="col-sm-2", onClick=`buy(${x+1})`, style="padding:10px") Name: #{value.name} length : #{value.length} author: #{value.author}
+      br
+      - x += 1;  
+
+  script.
+    function buy(index) {
+      alert("You purchased item "+index);
+    }

@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  h1= title
+  p   I made a change how interesting
+  button(type="button", class="btn btn-primary", onClick="moreClaps()") press me
+  div(id="target") Clap for me
+  a(href="/books") Click for cool books
+
+  script.
+    let clap_count = 0;
+    function moreClaps() {
+      console.log("here")
+      clap_count += 2;
+      out = document.getElementById('target');
+      out.innerHTML = "Clap " + clap_count;
+    }
