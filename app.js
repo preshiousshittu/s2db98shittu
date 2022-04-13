@@ -9,6 +9,16 @@ var booksRouter = require('./routes/books');
 var usersRouter = require('./routes/users');
 var addmodsRouter = require('./routes/addmods');
 var selectorRouter = require('./routes/selector');
+var Book = require("./models/book"); 
+var resourceRouter = require('./routes/resource');
+
+
+const connectionString =  
+process.env.MONGO_CON 
+mongoose = require('mongoose'); 
+mongoose.connect(connectionString,{useNewUrlParser: true,useUnifiedTopology: true}); 
+
+
 
 var app = express();
 
@@ -27,7 +37,7 @@ app.use('/books', booksRouter);
 app.use('/users', usersRouter);
 app.use('/addmods', addmodsRouter);
 app.use('/selector', selectorRouter);
-
+app.use('/resource', resourceRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -44,5 +54,36 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+async function recreateDB(){ 
+  // Delete everything 
+  await Book.deleteMany(); 
+ 
+  let instance1 = new 
+Book({name:"stoory",  length:200, 
+author:"made_by"}); 
+  instance1.save( function(err,doc) { 
+      if(err) return console.error(err); 
+      console.log("First object saved") 
+  }); 
+
+  let instance2 = new 
+  Book({name:"stoory2",  length:200, 
+  author:"made_by2"}); 
+    instance2.save( function(err,doc) { 
+        if(err) return console.error(err); 
+        console.log("second object saved") 
+    }); 
+    let instance3 = new 
+Book({name:"stoory3",  length:200, 
+author:"made_by3"}); 
+  instance3.save( function(err,doc) { 
+      if(err) return console.error(err); 
+      console.log("third object saved") 
+  }); 
+} 
+ 
+let reseed = true; 
+if (reseed) { recreateDB();} 
 
 module.exports = app;
