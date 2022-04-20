@@ -81,3 +81,26 @@ exports.book_view_all_Page = async function(req, res) {
         res.send(`{"error": ${err}}`); 
     }   
 }; 
+
+exports.book_view_one_Page = async function(req, res) { 
+    console.log("single view for id "  + req.query.id) 
+    try{ 
+        result = await Book.findById( req.query.id) 
+        res.render('bookdetail',  
+{ title: 'Book Detail', toShow: result }); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+}; 
+exports.book_create_Page =  function(req, res) { 
+    console.log("create view") 
+    try{ 
+        res.render('bookcreate', { title: 'Book Create'}); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+}; 

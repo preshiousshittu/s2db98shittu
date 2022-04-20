@@ -1,0 +1,22 @@
+extends layout 
+ 
+block content 
+  h1= title 
+ 
+  - let bookid = toShow._id 
+  - let bookname = toShow.name
+  - let booklength = toShow.length
+  - let bookauthor = toShow.author 
+  div 
+    div.row 
+      div(class='bookAttr mr-3') Book ID is: 
+      div #{bookid} 
+    div.row 
+      div(class='bookAttr mr-3') Book name is: 
+      div #{bookname} 
+    div.row 
+      div(class='bookAttr mr-3') Book Size is: 
+      div #{booklength} 
+    div.row 
+      div(class='bookAttr mr-3') Book Cost is: 
+      div #{bookauthor} 
