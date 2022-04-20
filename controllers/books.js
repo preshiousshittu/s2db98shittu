@@ -36,13 +36,20 @@ exports.book_create_post = async function(req, res) {
     catch(err){ 
         res.status(500); 
         res.send(`{"error": ${err}}`); 
-    }   
-    res.send('NOT IMPLEMENTED: book create POST'); 
+    } 
 }; 
  
-exports.book_delete = function(req, res) { 
-    res.send('NOT IMPLEMENTED: book delete DELETE ' + req.params.id); 
-}; 
+exports.book_delete = async function(req, res) { 
+        console.log("delete "  + req.params.id) 
+    try { 
+        result = await Book.findByIdAndDelete( req.params.id) 
+        console.log("Removed " + result) 
+        res.send(result) 
+    } catch (err) { 
+        res.status(500) 
+        res.send(`{"error": Error deleting ${err}}`); 
+    } 
+};
  
 exports.book_update_put = async function(req, res) { 
     console.log(`update on id ${req.params.id} with body 
