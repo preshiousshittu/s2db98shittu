@@ -1,0 +1,49 @@
+extends layout 
+ 
+block content 
+  h1= title 
+
+  if (toShow == null) 
+    h2 Nothing to update
+  else
+ 
+    - let bookid = toShow._id 
+    - let bookname = toShow.name 
+    - let booklength = toShow.length
+    - let bookauthor = toShow.author
+    
+    div.row(class='mb-2')
+      div.mr-1 the ID is 
+      div #{bookid}
+  
+ 
+  form(id='BookForm', action="/resource/books" + bookid, method="PUT") 
+    div.form-group 
+        label.bookAttr(for='name') Book Name 
+        input#name(type='text', name='name', value=bookname) 
+    div.form-group 
+        label.bookAttr(for='author') Book Author  
+        input#author(type='text', name='author', value=bookauthor) 
+    div.form-group 
+        label.bookAttr(for='length') Book length 
+        input#length(type='number', name='length', value=booklength) 
+    input(type="submit") 
+ 
+  script. 
+    document.forms['BookForm'].addEventListener('submit', (event) => { 
+      event.preventDefault(); 
+      // TODO do something here to show user that form is being submitted 
+      fetch(event.target.action, { 
+        method: 'PUT', 
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form 
+      }).then((resp) => { 
+        return resp.json(); // or resp.text() or whatever the server sends 
+      }).then((body) => { 
+        alert("Update succeded") 
+        window.location.href = '/books'
+        // TODO handle body 
+      }).catch((error) => { 
+        // TODO handle error 
+        alert("Save failed " + error ) 
+      }); 
+    }); 
