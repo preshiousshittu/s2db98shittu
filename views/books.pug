@@ -2,17 +2,22 @@ extends layout
 
 block content
   h1= title
-
+  -let destination4 = `dispatch(\"/books/create\")` 
+  button.btn( class="btn-primary ml-1", onclick= destination4) Create 
   - let result = results
   div(class="container-fluid")
     div(class="row")
     - let x = 0;
     each value in result 
       -let destination = `dispatch(\"/books/update?id=${value._id}\")` 
+      -let destination2 = `dispatch(\"/books/delete?id=${value._id}\")` 
+      -let destination3 = `dispatch(\"/books/detail?id=${value._id}\")` 
       div(class="col-sm-2", onClick=`buy(${x+1})`, style="padding:10px") Name: #{value.name} length : #{value.length} author: #{value.author}
       br
       - x += 1;  
+      button.btn( class="btn-primary ml-1", onclick= destination3) Detail
       button.btn( class="btn-primary ml-1", onclick= destination) Update 
+      button.btn( class="btn-primary ml-1", onclick= destination2) Delete 
 
   script.
     function buy(index) {
